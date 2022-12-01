@@ -9,10 +9,8 @@ with open('day1/input.txt', 'r') as f:
             tot_array.append(curr_array)
             curr_array = []
 
-most_calories = 0
+summed_arr = [sum(x) for x in tot_array]
 
-for arr in tot_array:
-    if sum(arr) > most_calories:
-        most_calories = sum(arr)
+top_three = sorted(summed_arr)[-3:]
 
-print(most_calories)
+print(sum(top_three))
