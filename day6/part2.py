@@ -5,10 +5,10 @@ with open('day6/input.txt', 'r') as f:
 result = 0
 
 for i, c in enumerate(signal):
-    substring = signal[i:i+4]
+    substring = signal[i:i+14]
 
     if len(set(substring)) == len(substring):
-        result = i+4
+        result = i+14
         break
 
 print(result)
