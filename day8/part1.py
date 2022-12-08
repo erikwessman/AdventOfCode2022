@@ -6,49 +6,22 @@ arr = []
 for row in arr_input:
     arr.append([int(x) for x in row])
 
-def calc_scenic_score(x,y,w,h):
+def is_visible(x,y,w,h):
     tree = arr[y][x]
-    row = arr[y]
-    column = [r[x] for r in arr]
-
-    left = 0
-    for i in range(x-1, -1, -1):
-        val = row[i]
-        left += 1
-        if val >= tree:
-            break
     
-    right = 0
-    for i in range(x+1, w):
-        val = row[i]
-        right += 1
-        if val >= tree:
-            break
+    left = arr[y][0:x]
+    right = arr[y][x+1:w]
+    up = [i[x] for i in arr][0:y]
+    down = [i[x] for i in arr][y+1:h]
 
-    up = 0
-    for i in range(y-1, -1, -1):
-        val = column[i]
-        up += 1
-        if val >= tree:
-            break
-
-    down = 0
-    for i in range(y+1, h):
-        val = column[i]
-        down += 1
-        if val >= tree:
-            break
-
-
-    return left*right*up*down
+    return max(left) < tree or max(right) < tree or max(up) < tree or max(down) < tree
 
 w,h = len(arr[0]), len(arr)
-result = 0
+result = w*2 + h*2 - 4
 
 for i in range(1, h-1):
     for j in range(1, w-1):
-        score = calc_scenic_score(j,i,w,h)
-        if score > result:
-            result = score
+        if is_visible(j,i,w,h):
+            result += 1
 
 print(result)
